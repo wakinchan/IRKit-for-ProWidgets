@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.kindadev.iprowidgets.widget.irkit</string>
+	<key>NSPrincipalClass</key>
+	<string>PWWidgetIRKitforProWidgets</string>
+	<key>PWInfoType</key>
+	<string>widget</string>
+	<key>PWInfoDisplayName</key>
+	<string>IRKit for ProWidgets</string>
+	<key>PWInfoAuthor</key>
+	<string>kinda</string>
+	<key>PWInfoDescription</key>
+	<string>send a signal to IRKit</string>
+</dict>
+</plist>

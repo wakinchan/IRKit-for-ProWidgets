@@ -1,0 +1,9 @@
+Package: com.kindadev.prowidgets.widget.irkit
+Name: IRKit for ProWidgets
+Depends: cc.tweak.prowidgets, firmware (>= 7.0), mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: ProWidgets to send a signal to IRKit. Use IRKit Simple.app internal function.
+Depiction: http://kindadev.com/cydia/prowidgetswidgetirkit.html
+Author: kinda
+Section: Addons (ProWidgets)
