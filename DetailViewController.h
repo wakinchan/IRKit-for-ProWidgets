@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 kinda. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <libprowidgets/libprowidgets.h>
 

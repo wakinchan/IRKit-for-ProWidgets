@@ -7,14 +7,8 @@
 //
 
 #import "IRKitforProWidgets.h"
+#import "Headers.h"
 #import <objcipc/objcipc.h>
-
-@interface SBApplicationController
-- (id)applicationWithDisplayIdentifier:(id)identifier;
-@end
-
-@interface SBApplication
-@end
 
 @implementation PWWidgetIRKitforProWidgets
 

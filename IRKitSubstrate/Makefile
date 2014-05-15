@@ -5,7 +5,7 @@ include /opt/theos/makefiles/common.mk
 
 TWEAK_NAME = IRKitSubstrate
 IRKitSubstrate_FILES = IRKitSubstrate.xm
-IRKitSubstrate_FRAMEWORKS = UIKit
+IRKitSubstrate_FRAMEWORKS = UIKit QuartzCore
 IRKitSubstrate_LIBRARIES = objcipc
 
 include $(THEOS_MAKE_PATH)/tweak.mk

@@ -1,3 +1,11 @@
+//
+//  UIImage+IRKit.m
+//  IRKit for ProWidgets
+//
+//  Created by kinda on 15.04.2014.
+//  Copyright (c) 2014 kinda. All rights reserved.
+//
+
 @implementation UIImage (IRKit)
 
 - (UIImage *) makeThumbnailOfSize:(CGSize)size

@@ -9,7 +9,24 @@
 #import "../Headers.h"
 #import <objcipc/objcipc.h>
 
-static inline __attribute__((constructor)) void init() {
+static inline UIImage * MakeCornerRoundImage(UIImage *image)
+{
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.frame = CGRectMake(0, 0, 120, 120);
+    imageLayer.contents = (id)image.CGImage;
+    imageLayer.masksToBounds = YES;
+    imageLayer.cornerRadius = 25.0f;
+
+    UIGraphicsBeginImageContext(imageLayer.frame.size);
+    [imageLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return roundedImage;
+}
+
+static inline __attribute__((constructor)) void init()
+{
     @autoreleasepool {
         [OBJCIPC registerIncomingMessageFromSpringBoardHandlerForMessageName:@"IRKitSimple" handler:^NSDictionary *(NSDictionary *dict) {
             NSString *action = dict[@"action"];
@@ -32,12 +49,12 @@ static inline __attribute__((constructor)) void init() {
                     } else if ([type isEqualToString:@"album"]) {
                         NSString *dir = asDictionary[i][@"custom"][@"dir"];
                         NSString *path = [NSString stringWithFormat:@"%@/120.png", dir];
-                        image = [UIImage imageWithContentsOfFile:path];
+                        image = MakeCornerRoundImage([UIImage imageWithContentsOfFile:path]);
                     }
                     NSData *data = [[[NSData alloc] initWithData:UIImagePNGRepresentation(image)] autorelease];
                     images[i] = data;
                 }
-                return @{@"asDictionary" : [asDictionary copy], @"images" : images };
+                return @{ @"asDictionary" : [asDictionary copy], @"images" : images };
 
             } else if ([action isEqualToString:@"send_signal"]) {
                 IRSignals *_signals = [[%c(IRSignals) alloc] init];

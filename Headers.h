@@ -12,44 +12,51 @@
 - (void) launchApplicationWithIdentifier: (NSString*)identifier suspended: (BOOL)suspended;
 @end
 
+@interface SBApplicationController
+- (id)applicationWithDisplayIdentifier:(id)identifier;
+@end
+
+@interface SBApplication
+@end
+
 @interface IRSignals : NSObject
 - (id)data;
 - (id)init;
-- (id)objectAtIndex:(unsigned int)arg1;
-- (id)objectInSignalsAtIndex:(unsigned int)arg1;
-- (void)loadFromData:(id)arg1;
-- (void)setSignals:(id)arg1;
+- (id)objectAtIndex:(unsigned int)index;
+- (id)objectInSignalsAtIndex:(unsigned int)index;
+- (void)loadFromData:(id)data;
+- (void)setSignals:(id)signals;
 - (id)signals;
-- (void)insertObject:(id)arg1 inSignalsAtIndex:(unsigned int)arg2;
-- (void)addSignalsObject:(id)arg1;
-- (unsigned int)indexOfSignal:(id)arg1;
+- (void)insertObject:(id)object inSignalsAtIndex:(unsigned int)index;
+- (void)addSignalsObject:(id)object;
+- (unsigned int)indexOfSignal:(id)signal;
 - (unsigned int)countOfSignals;
-- (void)saveToStandardUserDefaultsWithKey:(id)arg1;
-- (void)removeObjectFromSignalsAtIndex:(unsigned int)arg1;
-- (void)loadFromStandardUserDefaultsKey:(id)arg1;
+- (void)saveToStandardUserDefaultsWithKey:(id)key;
+- (void)removeObjectFromSignalsAtIndex:(unsigned int)index;
+- (void)loadFromStandardUserDefaultsKey:(id)key;
 @end
 
 @interface IRSignal : NSObject
 - (id)hostname;
-- (void)setFormat:(id)arg1;
+- (void)setFormat:(id)format;
 - (id)format;
-- (void)setHostname:(id)arg1;
-- (void)setFrequency:(id)arg1;
+- (void)setHostname:(id)hostname;
+- (void)setFrequency:(id)frequency;
 - (id)frequency;
 - (id)name;
-- (void)setName:(id)arg1;
-- (void)setData:(id)arg1;
+- (void)setName:(id)name;
+- (void)setData:(id)data;
 - (id)data;
-- (id)initWithDictionary:(id)arg1;
+- (id)initWithDictionary:(id)dictonary;
 - (id)init;
-- (void)encodeWithCoder:(id)arg1;
-- (id)initWithCoder:(id)arg1;
+- (void)encodeWithCoder:(id)coder;
+- (id)initWithCoder:(id)coder;
 - (id)peripheral;
 - (id)asPublicDictionary;
-- (void)inflateFromDictionary:(id)arg1;
+- (void)inflateFromDictionary:(id)dictonary;
 - (id)asDictionary;
-- (void)setPeripheral:(id)arg1;
+- (void)setPeripheral:(id)peripheral;
 - (id)custom;
-- (void)sendWithCompletion:(id)arg1;
-- (void)setCustom:(id)arg1;
+- (void)sendWithCompletion:(id)completion;
+- (void)setCustom:(id)custom;
 @end
