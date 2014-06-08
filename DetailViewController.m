@@ -19,7 +19,8 @@
     self.shouldMaximizeContentHeight = YES;
     self.requiresKeyboard = NO;
     
-    self.view.backgroundColor = [PWTheme parseColorString:@"#d9d9d9"];
+    self.view.backgroundColor = [UIColor clearColor];
+    // self.view.backgroundColor = [PWTheme parseColorString:@"#d9d9d9"];
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -69,7 +70,8 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = [PWTheme parseColorString:@"#e5e5e5"];
+    cell.backgroundColor = [UIColor clearColor];
+    //cell.backgroundColor = [PWTheme parseColorString:@"#e5e5e5"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

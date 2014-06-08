@@ -23,7 +23,8 @@
     self.shouldAutoConfigureStandardButtons = YES;
     self.actionButtonText = @"Manage";
     
-    self.view.backgroundColor = [PWTheme parseColorString:@"#d9d9d9"];
+    self.view.backgroundColor = [UIColor clearColor];
+    // self.view.backgroundColor = [PWTheme parseColorString:@"#d9d9d9"];
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -96,7 +97,8 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    cell.backgroundColor = [PWTheme parseColorString:@"#e5e5e5"];
+    cell.backgroundColor = [UIColor clearColor];
+    //cell.backgroundColor = [PWTheme parseColorString:@"#e5e5e5"];
 }
 
 - (void)willBePresentedInNavigationController:(UINavigationController *)navigationController
@@ -136,7 +138,7 @@
             [animation setDuration:.2];
             [[self.tableView layer] addAnimation:animation forKey:@"fade"];
         } else {
-            [self.widget showMessage:@"Please set up IRKit Simple.app."];
+            [self.widget showMessage:@"Please set up \"IRKit SimpleRemote\"."];
         }
     }];
 }
