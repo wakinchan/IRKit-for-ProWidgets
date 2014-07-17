@@ -48,7 +48,10 @@ static inline __attribute__((constructor)) void init()
                         
                     } else if ([type isEqualToString:@"album"]) {
                         NSString *dir = asDictionary[i][@"custom"][@"dir"];
-                        NSString *path = [NSString stringWithFormat:@"%@/120.png", dir];
+                        if ([dir hasPrefix:@"/var/mobile/Applications/"]) {
+                            dir = [[dir componentsSeparatedByString:@"/"] lastObject];
+                        }
+                        NSString *path = [NSString stringWithFormat:@"%@/%@/120.png", [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"], dir];
                         image = MakeCornerRoundImage([UIImage imageWithContentsOfFile:path]);
                     }
                     NSData *data = [[[NSData alloc] initWithData:UIImagePNGRepresentation(image)] autorelease];
