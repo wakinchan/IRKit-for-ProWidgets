@@ -8,7 +8,7 @@
 
 @implementation UIImage (IRKit)
 
-- (UIImage *) makeThumbnailOfSize:(CGSize)size
+- (UIImage *)makeThumbnailOfSize:(CGSize)size
 {
     UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
     // draw scaled image into thumbnail context
@@ -18,6 +18,22 @@
     UIGraphicsEndImageContext();
     
     return newThumbnail;
+}
+
+- (UIImage *)makeCornerRoundImage
+{
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.frame = CGRectMake(0, 0, 120, 120);
+    imageLayer.contents = (id)self.CGImage;
+    imageLayer.masksToBounds = YES;
+    imageLayer.cornerRadius = 25.0f;
+
+    UIGraphicsBeginImageContext(imageLayer.frame.size);
+    [imageLayer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *roundedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return roundedImage;
 }
 
 @end

@@ -20,8 +20,7 @@
 - (void)load
 {
     // check if the app is installed on the device
-    SBApplicationController *controller = [objc_getClass("SBApplicationController") sharedInstance];
-    SBApplication *authApp = [controller applicationWithDisplayIdentifier:@"jp.maaash.simpleremote"];
+    SBApplication *authApp = [[objc_getClass("SBApplicationController") sharedInstance] applicationWithDisplayIdentifier:@"jp.maaash.simpleremote"];
     if (authApp == nil) {
         [self showMessage:@"You need to install \"IRKit SimpleRemote\" from App Store to use this widget."];
         [self dismiss];

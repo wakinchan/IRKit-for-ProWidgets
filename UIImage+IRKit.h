@@ -10,6 +10,7 @@
 
 @interface UIImage (IRKit)
 
-- (UIImage *) makeThumbnailOfSize:(CGSize)size;
+- (UIImage *)makeCornerRoundImage;
+- (UIImage *)makeThumbnailOfSize:(CGSize)size;
 
 @end

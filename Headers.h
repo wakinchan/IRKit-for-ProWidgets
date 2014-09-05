@@ -12,11 +12,41 @@
 - (void) launchApplicationWithIdentifier: (NSString*)identifier suspended: (BOOL)suspended;
 @end
 
-@interface SBApplicationController
-- (id)applicationWithDisplayIdentifier:(id)identifier;
+@interface SBApplication
+- (NSBundle *)bundle;
+- (NSString *)displayName;
+- (id)containerPath;
+- (id)path;
 @end
 
-@interface SBApplication
+@interface SBApplicationController
++ (id)sharedInstance;
+- (id)allApplications;
+- (id)allDisplayIdentifiers;
+- (SBApplication *)applicationWithDisplayIdentifier:(id)displayIdentifier;
+@end
+
+@interface CUICommonAssetStorage
+- (id)allAssetKeys;
+- (id)allRenditionNames;
+@end
+
+@interface CUIStructuredThemeStore
+- (CUICommonAssetStorage *)themeStore;
+@end
+
+@interface CUICatalog
+- (CUIStructuredThemeStore *)_themeStore;
+@end
+
+@interface _UIAssetManager
++ (_UIAssetManager *)assetManagerForBundle:(NSBundle *)bundle;
+- (CUICatalog *)_catalog;
+- (UIImage *)imageNamed:(NSString *)name;
+@end
+
+@interface UIImage (Private)
++ (UIImage *)_applicationIconImageForBundleIdentifier:(NSString *)bundleIdentifier format:(int)format scale:(CGFloat)scale;
 @end
 
 @interface IRSignals : NSObject

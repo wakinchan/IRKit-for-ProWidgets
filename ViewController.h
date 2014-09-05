@@ -10,8 +10,7 @@
 #import <libprowidgets/libprowidgets.h>
 
 @interface PWWidgetIRKitforProWidgetsViewController : PWContentViewController <UITableViewDelegate, UITableViewDataSource> {
-	NSArray *_asDictionary;
-    NSArray *_images;
+	NSArray *_signals;
 }
 
 - (UITableView *)tableView;

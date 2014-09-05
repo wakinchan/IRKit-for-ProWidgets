@@ -64,8 +64,8 @@
     return 350.0;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     unsigned int row = [indexPath row];
 
     NSDictionary *dict = @{ @"action": @"send_signal", @"index" : [NSNumber numberWithInteger:row] };
@@ -85,8 +85,8 @@
     unsigned int row = [indexPath row];
 
     PWWidgetIRKitforProWidgetsDetailViewController * vc = [[PWWidgetIRKitforProWidgetsDetailViewController alloc] initForWidget:self.widget];
-    vc.title = _asDictionary[row][@"name"];
-    vc.detail = _asDictionary[row];
+    vc.title = _signals[row][@"name"];
+    vc.detail = _signals[row];
     [self.widget pushViewController:vc animated:YES];
 }
 
@@ -113,20 +113,17 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_asDictionary count];
+    return [_signals count];
 }
 
 - (void)retrieveRecords
 {
     NSDictionary *dict = @{ @"action": @"get_signal" };
     [OBJCIPC sendMessageToAppWithIdentifier:@"jp.maaash.simpleremote" messageName:@"IRKitSimple" dictionary:dict replyHandler:^(NSDictionary *reply) {
-        NSArray *asDictionary = reply[@"asDictionary"];
-        NSArray *images = reply[@"images"];
-        if (asDictionary) {
-            RELEASE(_asDictionary)
-            RELEASE(_images)
-            _asDictionary = [asDictionary copy];
-            _images = [images copy];
+        NSArray *signals = reply[@"dict"];
+        if (signals) {
+            RELEASE(_signals)
+            _signals = [signals copy];
 
             [self.tableView reloadData];
 
@@ -146,8 +143,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     unsigned int row = [indexPath row];
-    NSDictionary *asDictionary = _asDictionary[row];
-    NSData *imageData = _images[row];
+    NSDictionary *signals = _signals[row];
 
     static NSString *identifier = @"PWWidgetIRKitTableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -155,10 +151,26 @@
     if (!cell) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier] autorelease];
     }
-    cell.textLabel.text = asDictionary[@"name"];
-    cell.detailTextLabel.text = asDictionary[@"hostname"];
-    UIImage *icon = [[[UIImage alloc] initWithData:imageData] autorelease];
-    cell.imageView.image = [icon makeThumbnailOfSize:CGSizeMake(40,40)];
+    cell.textLabel.text = signals[@"name"];
+    cell.detailTextLabel.text = signals[@"hostname"];
+    NSString *type = signals[@"custom"][@"type"];
+
+    UIImage *image = [UIImage new];
+    SBApplication* app = [[objc_getClass("SBApplicationController") sharedInstance] applicationWithDisplayIdentifier:@"jp.maaash.simpleremote"];
+    if ([type isEqualToString:@"preset"]) {
+        NSString *name = signals[@"custom"][@"name"];
+        _UIAssetManager *manager = [objc_getClass("_UIAssetManager") assetManagerForBundle:[app bundle]];
+        image = [manager imageNamed:[NSString stringWithFormat:@"btn_icon_120_%@.png", name]];
+    } else if ([type isEqualToString:@"album"]) {
+        NSString *dir = signals[@"custom"][@"dir"];
+        if ([dir hasPrefix:@"/var/mobile/Applications/"]) {
+            dir = [[dir componentsSeparatedByString:@"/"] lastObject];
+        }
+        NSString *path = [NSString stringWithFormat:@"%@/Documents/%@/120.png", [app containerPath], dir];
+        image = [[UIImage imageWithContentsOfFile:path] makeCornerRoundImage];
+    }
+
+    cell.imageView.image = [image makeThumbnailOfSize:CGSizeMake(40,40)];
     cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 
     return cell;
@@ -167,8 +179,7 @@
 - (void)dealloc
 {
     // release everything here
-    RELEASE(_asDictionary)
-    RELEASE(_images)
+    RELEASE(_signals)
     [super dealloc];
 }
 

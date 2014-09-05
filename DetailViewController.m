@@ -58,14 +58,15 @@
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
-    CGSize bounds = CGSizeMake(self.tableView.frame.size.width, self.tableView.frame.size.height);
+    CGSize bounds = CGSizeMake(self.tableView.frame.size.width - 20.f, self.tableView.frame.size.height);
     CGSize size = [cell.textLabel.text sizeWithFont:cell.textLabel.font
                                                 constrainedToSize:bounds
                                                 lineBreakMode:NSLineBreakByClipping];
+    CGSize recalcBounds = CGSizeMake(self.tableView.frame.size.width - size.width - 30.f, self.tableView.frame.size.height);
     CGSize detailSize = [cell.detailTextLabel.text sizeWithFont:cell.detailTextLabel.font
-                                                constrainedToSize:bounds
+                                                constrainedToSize:recalcBounds
                                                 lineBreakMode:NSLineBreakByCharWrapping];
-    return size.height + detailSize.height;
+    return detailSize.height + 20.f;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
