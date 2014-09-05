@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 kinda. All rights reserved.
 //
 
-+%config(generator=internal)
+%config(generator=internal)
 
 #import "../Headers.h"
 #import <objcipc/objcipc.h>
