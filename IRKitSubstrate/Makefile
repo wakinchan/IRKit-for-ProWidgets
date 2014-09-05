@@ -1,5 +1,6 @@
-export TARGET = :clang
-ARCHS = armv7 armv7s arm64
+export TARGET = iphone:clang::7.0
+export ARCHS = armv7 arm64
+export GO_EASY_ON_ME = 1
 
 include /opt/theos/makefiles/common.mk
 
